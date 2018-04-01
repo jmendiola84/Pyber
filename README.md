@@ -1,8 +1,8 @@
 
  OBSERVABLE TRENDS
-    - There are more rides on Urban cities.
-    - Fares are higher on Rural cities (probably because of the trip distance)
-    - Most of the drivers are in the Urban cities.
+    + There are more rides on Urban cities.
+    + Fares are higher on Rural cities (probably because of the trip distance)
+    + Most of the drivers are in the Urban cities.
 
 
 ```python
@@ -396,9 +396,6 @@ drivers_per_city = pyber_df
 drivers_per_city = drivers_per_city.groupby(['city'])
 drivers_per_city = drivers_per_city['driver_count'].mean()
 drivers_per_city.head()
-#city_list = pyber_df
-#city_list['type'] = city_list['type'].replace({"Rural":"0","Suburban":"1","Urban":"2"})
-#city_list['type'] = city_list['type'].astype(int)
 ```
 
 
@@ -416,18 +413,12 @@ drivers_per_city.head()
 
 
 ```python
-#city_type = pyber_df 
-#city_type = city_type.groupby(['city'])
-#city_type = city_type['type'].loc()
-#city_type.head()
-```
-
-
-```python
 pyber_type_df = pyber_cities_df.merge(rides_per_city.to_frame(), left_index=True, right_index=True)
 pyber_type_df = pyber_type_df.merge(city_csv, left_index=True, right_on="city")
 pyber_type_df = pyber_type_df.drop('driver_count_x', 1)
 pyber_type_df = pyber_type_df.set_index('city')
+pyber_type_df = pyber_type_df.rename(index=str, columns={"ride_id": "rides", "driver_count_y": "drivers"})
+pyber_type_df = pyber_type_df.drop([0,"Port James"])
 pyber_type_df.head()
 ```
 
@@ -453,8 +444,8 @@ pyber_type_df.head()
     <tr style="text-align: right;">
       <th></th>
       <th>fare</th>
-      <th>ride_id</th>
-      <th>driver_count_y</th>
+      <th>rides</th>
+      <th>drivers</th>
       <th>type</th>
     </tr>
     <tr>
@@ -501,8 +492,401 @@ pyber_type_df.head()
       <td>49</td>
       <td>Urban</td>
     </tr>
+    <tr>
+      <th>Arnoldview</th>
+      <td>25.106452</td>
+      <td>31</td>
+      <td>41</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Campbellport</th>
+      <td>33.711333</td>
+      <td>15</td>
+      <td>26</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Carrollbury</th>
+      <td>36.606000</td>
+      <td>10</td>
+      <td>4</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Carrollfort</th>
+      <td>25.395517</td>
+      <td>29</td>
+      <td>55</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Clarkstad</th>
+      <td>31.051667</td>
+      <td>12</td>
+      <td>21</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Conwaymouth</th>
+      <td>34.591818</td>
+      <td>11</td>
+      <td>18</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Davidtown</th>
+      <td>22.978095</td>
+      <td>21</td>
+      <td>73</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Davistown</th>
+      <td>21.497200</td>
+      <td>25</td>
+      <td>25</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>East Cherylfurt</th>
+      <td>31.416154</td>
+      <td>13</td>
+      <td>9</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>East Douglas</th>
+      <td>26.169091</td>
+      <td>22</td>
+      <td>12</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>East Erin</th>
+      <td>24.478214</td>
+      <td>28</td>
+      <td>43</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>East Jenniferchester</th>
+      <td>32.599474</td>
+      <td>19</td>
+      <td>22</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>East Leslie</th>
+      <td>33.660909</td>
+      <td>11</td>
+      <td>9</td>
+      <td>Rural</td>
+    </tr>
+    <tr>
+      <th>East Stephen</th>
+      <td>39.053000</td>
+      <td>10</td>
+      <td>6</td>
+      <td>Rural</td>
+    </tr>
+    <tr>
+      <th>East Troybury</th>
+      <td>33.244286</td>
+      <td>7</td>
+      <td>3</td>
+      <td>Rural</td>
+    </tr>
+    <tr>
+      <th>Edwardsbury</th>
+      <td>26.876667</td>
+      <td>27</td>
+      <td>11</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Erikport</th>
+      <td>30.043750</td>
+      <td>8</td>
+      <td>3</td>
+      <td>Rural</td>
+    </tr>
+    <tr>
+      <th>Eriktown</th>
+      <td>25.478947</td>
+      <td>19</td>
+      <td>15</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Floresberg</th>
+      <td>32.310000</td>
+      <td>10</td>
+      <td>7</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Fosterside</th>
+      <td>23.034583</td>
+      <td>24</td>
+      <td>69</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Hernandezshire</th>
+      <td>32.002222</td>
+      <td>9</td>
+      <td>10</td>
+      <td>Rural</td>
+    </tr>
+    <tr>
+      <th>Horneland</th>
+      <td>21.482500</td>
+      <td>4</td>
+      <td>8</td>
+      <td>Rural</td>
+    </tr>
+    <tr>
+      <th>Jacksonfort</th>
+      <td>32.006667</td>
+      <td>6</td>
+      <td>6</td>
+      <td>Rural</td>
+    </tr>
+    <tr>
+      <th>Jacobfort</th>
+      <td>24.779355</td>
+      <td>31</td>
+      <td>52</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Jasonfort</th>
+      <td>27.831667</td>
+      <td>12</td>
+      <td>25</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Port Alexandria</th>
+      <td>26.316667</td>
+      <td>15</td>
+      <td>27</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Port Guytown</th>
+      <td>28.242000</td>
+      <td>15</td>
+      <td>26</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Port Johnstad</th>
+      <td>25.882941</td>
+      <td>34</td>
+      <td>22</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Port Jose</th>
+      <td>31.193889</td>
+      <td>18</td>
+      <td>11</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Port Josephfurt</th>
+      <td>26.367727</td>
+      <td>22</td>
+      <td>28</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Port Martinberg</th>
+      <td>22.329524</td>
+      <td>21</td>
+      <td>44</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Port Michelleview</th>
+      <td>26.720000</td>
+      <td>22</td>
+      <td>16</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Port Samantha</th>
+      <td>27.047407</td>
+      <td>27</td>
+      <td>55</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Prattfurt</th>
+      <td>23.346667</td>
+      <td>24</td>
+      <td>43</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Rodriguezburgh</th>
+      <td>21.332609</td>
+      <td>23</td>
+      <td>52</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Rodriguezview</th>
+      <td>31.866500</td>
+      <td>20</td>
+      <td>10</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Russellport</th>
+      <td>22.486087</td>
+      <td>23</td>
+      <td>9</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Sandymouth</th>
+      <td>23.105926</td>
+      <td>27</td>
+      <td>11</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Sarabury</th>
+      <td>23.490000</td>
+      <td>27</td>
+      <td>46</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Sarahview</th>
+      <td>33.862000</td>
+      <td>15</td>
+      <td>18</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Shelbyhaven</th>
+      <td>34.828333</td>
+      <td>6</td>
+      <td>9</td>
+      <td>Rural</td>
+    </tr>
+    <tr>
+      <th>Smithhaven</th>
+      <td>22.788889</td>
+      <td>27</td>
+      <td>67</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>South Bryanstad</th>
+      <td>24.598571</td>
+      <td>21</td>
+      <td>73</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>South Elizabethmouth</th>
+      <td>28.698000</td>
+      <td>5</td>
+      <td>3</td>
+      <td>Rural</td>
+    </tr>
+    <tr>
+      <th>South Gracechester</th>
+      <td>31.345789</td>
+      <td>19</td>
+      <td>19</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>South Jennifer</th>
+      <td>29.798750</td>
+      <td>16</td>
+      <td>6</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>South Joseph</th>
+      <td>38.983333</td>
+      <td>12</td>
+      <td>3</td>
+      <td>Rural</td>
+    </tr>
+    <tr>
+      <th>South Josephville</th>
+      <td>26.823750</td>
+      <td>24</td>
+      <td>4</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>South Louis</th>
+      <td>27.087500</td>
+      <td>32</td>
+      <td>12</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>South Roy</th>
+      <td>26.031364</td>
+      <td>22</td>
+      <td>35</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>South Shannonborough</th>
+      <td>26.516667</td>
+      <td>15</td>
+      <td>9</td>
+      <td>Suburban</td>
+    </tr>
+    <tr>
+      <th>Spencertown</th>
+      <td>23.681154</td>
+      <td>26</td>
+      <td>68</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Stevensport</th>
+      <td>31.948000</td>
+      <td>5</td>
+      <td>6</td>
+      <td>Rural</td>
+    </tr>
+    <tr>
+      <th>Stewartview</th>
+      <td>21.614000</td>
+      <td>30</td>
+      <td>49</td>
+      <td>Urban</td>
+    </tr>
+    <tr>
+      <th>Swansonbury</th>
+      <td>27.464706</td>
+      <td>34</td>
+      <td>64</td>
+      <td>Urban</td>
+    </tr>
   </tbody>
 </table>
+<p>100 rows × 4 columns</p>
 </div>
 
 
@@ -510,9 +894,7 @@ pyber_type_df.head()
 
 ```python
 rural_df = pyber_type_df.loc[pyber_type_df['type'] == 'Rural']
-rural_df
 suburban_df = pyber_type_df.loc[pyber_type_df['type'] == 'Suburban']
-suburban_df
 urban_df = pyber_type_df.loc[pyber_type_df['type'] == 'Urban']
 urban_df.head()
 ```
@@ -539,8 +921,8 @@ urban_df.head()
     <tr style="text-align: right;">
       <th></th>
       <th>fare</th>
-      <th>ride_id</th>
-      <th>driver_count_y</th>
+      <th>rides</th>
+      <th>drivers</th>
       <th>type</th>
     </tr>
     <tr>
@@ -595,41 +977,29 @@ urban_df.head()
 
 
 ```python
-#citylist['type'] = citylist['type'].replace({'Rural':'1','Suburban':'2', 'Urban':'3'})
-
-#urbanlist =
-
-#urban_list = pyber_df.groupby(['type'])
-#urban_list 
-#loc[city_list['type'] == 0]
-
 # create data
-x = rural_df['ride_id']
+x = rural_df['rides']
 y = rural_df['fare']
-a = suburban_df['ride_id']
+a = suburban_df['rides']
 b = suburban_df['fare']
-c = urban_df['ride_id']
+c = urban_df['rides']
 d = urban_df['fare']
-
 
  
 # use the scatter function
-plt.scatter(x, y, s= rural_df['driver_count_y'], c="gold", alpha=0.5, edgecolors = "black", linewidth=1)
-plt.scatter(a, b, s= suburban_df['driver_count_y'], c="lightskyblue", alpha=0.5, edgecolors = "black", linewidth=1)
-plt.scatter(c, d, s= urban_df['driver_count_y'], c="lightcoral", alpha=0.5, edgecolors = "black", linewidth=1)
-
-
+plt.scatter(x, y, s= rural_df['drivers'], c="gold", label="Rural", alpha=0.5, edgecolors = "black", linewidth=1)
+plt.scatter(a, b, s= suburban_df['drivers'], c="lightskyblue", label="Suburban", alpha=0.5, edgecolors = "black", linewidth=1)
+plt.scatter(c, d, s= urban_df['drivers'], c="lightcoral", label="Urban", alpha=0.5, edgecolors = "black", linewidth=1)
 
 plt.title("Pyber Ride Sharing Data (2016)")
 plt.xlabel("Total Number of Rides (Per City)")
 plt.ylabel("Average Fare ($)")
-#plt.legend([0,1,2], (city_list.index.values))
-#,('Rural','Suburban','Urban'))
+plt.legend()
+sb.axes_style("darkgrid")
 plt.show()
 
-#["Rural","Suburban","Urban"]
 ```
 
 
-![png](output_14_0.png)
+![png](output_13_0.png)
 
