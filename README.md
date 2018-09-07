@@ -52,7 +52,7 @@ city_csv.head()
 
 
 <div>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -107,7 +107,7 @@ ride_csv.head()
 
 
 <div>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -172,7 +172,7 @@ pyber_cities_df.head()
 
 
 <div>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -413,7 +413,7 @@ pyber_type_df.head()
 
 
 <div>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -877,7 +877,7 @@ urban_df.head()
 
 
 <div>
-<table border="1" class="dataframe">
+<table class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
