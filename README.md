@@ -27,9 +27,31 @@ In addition, you will be expected to produce the following three pie charts:
 % of Total Drivers by City Type
 
 ## Data Source
+Two CSV files were provided with the data required for this project:
+
+### city_data.csv
+This source provide information about the number of Uber drivers by city and the level of urbanization for each city.
+
+Columns:
+* City
+* Driver count
+* Type (Urban, Suburban, Rural)
+
+### ride_data.csv
+This file contains information related with rides completed during the timelapse analyzed.
+
+Columns:
+* City 
+* Date
+* Fare
+* Ride ID
+
+
 
 ## Coding
 
+### Import Libraries
+Matplotlib, Numpy, Pandas and Seaborn libraries are imported.
 
 ```python
 # Dependencies
@@ -39,23 +61,26 @@ import numpy as np
 import pandas as pd
 import seaborn as sb
 ```
+### Import Data Source
 
+Both CSV Files are read and a dataframe is created for each one of them.
 
 ```python
 # Read CSV
 city_csv = pd.read_csv('city_data.csv')
 ride_csv = pd.read_csv('ride_data.csv')
-city_csv.head()
 ```
 
+**_city_csv_** dataframe is displayed.
 
-
-
+```python
+city_csv.head()
+```
 <div>
+<p><b>Pyber Drivers Database (First 5 rows)</b></p>
 <table class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>city</th>
       <th>driver_count</th>
       <th>type</th>
@@ -63,31 +88,26 @@ city_csv.head()
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
       <td>Kelseyland</td>
       <td>63</td>
       <td>Urban</td>
     </tr>
     <tr>
-      <th>1</th>
       <td>Nguyenbury</td>
       <td>8</td>
       <td>Urban</td>
     </tr>
     <tr>
-      <th>2</th>
       <td>East Douglas</td>
       <td>12</td>
       <td>Urban</td>
     </tr>
     <tr>
-      <th>3</th>
       <td>West Dawnfurt</td>
       <td>34</td>
       <td>Urban</td>
     </tr>
     <tr>
-      <th>4</th>
       <td>Rodriguezburgh</td>
       <td>52</td>
       <td>Urban</td>
@@ -98,19 +118,18 @@ city_csv.head()
 
 
 
+**_ride_csv_** dataframe is displayed.
+
 
 ```python
 ride_csv.head()
 ```
 
-
-
-
 <div>
+<p><b>Pyber Rides Database (First 5 rows)</b></p>
 <table class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>city</th>
       <th>date</th>
       <th>fare</th>
@@ -119,35 +138,30 @@ ride_csv.head()
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
       <td>Sarabury</td>
       <td>2016-01-16 13:49:27</td>
       <td>38.35</td>
       <td>5403689035038</td>
     </tr>
     <tr>
-      <th>1</th>
       <td>South Roy</td>
       <td>2016-01-02 18:42:34</td>
       <td>17.49</td>
       <td>4036272335942</td>
     </tr>
     <tr>
-      <th>2</th>
       <td>Wiseborough</td>
       <td>2016-01-21 17:35:29</td>
       <td>44.18</td>
       <td>3645042422587</td>
     </tr>
     <tr>
-      <th>3</th>
       <td>Spencertown</td>
       <td>2016-07-31 14:53:22</td>
       <td>6.87</td>
       <td>2242596575892</td>
     </tr>
     <tr>
-      <th>4</th>
       <td>Nguyenbury</td>
       <td>2016-07-09 04:42:44</td>
       <td>6.28</td>
@@ -158,10 +172,15 @@ ride_csv.head()
 </div>
 
 
-
+Both dataframes are merged on City column to create **_pyber_df_** dataframe that will be the baseline for our analysis.
 
 ```python
 pyber_df = pd.merge(city_csv, ride_csv, on="city")
+```
+
+**_pyber_cities_df_** dataframe is created grouping **_pyber_df_** dataframe by City column,  
+
+```python
 pyber_cities_df = pyber_df.groupby(['city'])
 pyber_cities_df = pyber_cities_df.mean()
 pyber_cities_df = pyber_cities_df.drop(['ride_id'],1)
@@ -175,14 +194,9 @@ pyber_cities_df.head()
 <table class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
+      <th>city</th>
       <th>driver_count</th>
       <th>fare</th>
-    </tr>
-    <tr>
-      <th>city</th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -416,18 +430,11 @@ pyber_type_df.head()
 <table class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
+      <th>city</th>
       <th>fare</th>
       <th>rides</th>
       <th>drivers</th>
       <th>type</th>
-    </tr>
-    <tr>
-      <th>city</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -880,18 +887,11 @@ urban_df.head()
 <table class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
+      <th>city</th>
       <th>fare</th>
       <th>rides</th>
       <th>drivers</th>
       <th>type</th>
-    </tr>
-    <tr>
-      <th>city</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
