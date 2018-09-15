@@ -171,6 +171,7 @@ ride_csv.head()
 </table>
 </div>
 
+### Merge Source Dataframes
 
 Both dataframes are merged on City column to create **_pyber_df_** dataframe that will be the baseline for our analysis.
 
@@ -178,7 +179,7 @@ Both dataframes are merged on City column to create **_pyber_df_** dataframe tha
 pyber_df = pd.merge(city_csv, ride_csv, on="city")
 ```
 
-**_pyber_cities_df_** dataframe is created grouping **_pyber_df_** dataframe by City column,  
+**_pyber_cities_df_** dataframe is created grouping **_pyber_df_** dataframe by City column, getting the average by city for all the columns and dropping Ride ID column. 
 
 ```python
 pyber_cities_df = pyber_df.groupby(['city'])
@@ -187,10 +188,8 @@ pyber_cities_df = pyber_cities_df.drop(['ride_id'],1)
 pyber_cities_df.head()
 ```
 
-
-
-
 <div>
+<p><b>Average Fare by City (First 5 Rows)</b></p>
 <table class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -229,24 +228,30 @@ pyber_cities_df.head()
 </table>
 </div>
 
+### Pie charts
 
+#### Total Rides by City Type
 
+**_total_rides_city_type_** dataframe is created grouping **_pyber_df_** dataframe by **City Type** column, and getting count of rides for each city type as the only column.
 
 ```python
 total_rides_city_type = pyber_df.groupby(['type'])
 total_rides_city_type = total_rides_city_type['ride_id'].count()
 total_rides_city_type
+```
 
-# Labels for the sections of our pie chart
+Pie chart details:
+```python
+# Labels for the sections of pie chart
 labels = ["Rural", "Suburban", "Urban"]
 
-# The values of each section of the pie chart
+# Values of each section of pie chart
 sizes = [total_rides_city_type['Rural'], total_rides_city_type['Suburban'], total_rides_city_type['Urban'] ]
 
 # The colors of each section of the pie chart
 colors = ["gold", "lightskyblue", "lightcoral"]
 
-# Tells matplotlib to seperate the "Python" section from the others
+# Tells matplotlib to separate the "Urban" section from the others
 explode = (0, 0, 0.1)
 
 # Creates the pie chart based upon the values above
@@ -268,12 +273,18 @@ plt.show()
 ![png](output_5_0.png)
 
 
+#### Total Drivers by City Type
+
+**_total_drivers_city_type_** dataframe is created grouping **_city_csv_** dataframe by **City Type** column, and getting count of drivers for each city type as the only column.
 
 ```python
 total_drivers_city_type = city_csv.groupby(['type'])
 total_drivers_city_type = total_drivers_city_type['driver_count'].sum()
 total_drivers_city_type
+```
 
+Pie chart details:
+```python
 # Labels for the sections of our pie chart
 labels = ["Rural", "Suburban", "Urban"]
 
@@ -283,7 +294,7 @@ sizes = [total_drivers_city_type['Rural'], total_drivers_city_type['Suburban'], 
 # The colors of each section of the pie chart
 colors = ["gold", "lightskyblue", "lightcoral"]
 
-# Tells matplotlib to seperate the "Python" section from the others
+# Tells matplotlib to seperate the "Urban" section from the others
 explode = (0, 0, 0.1)
 
 # Creates the pie chart based upon the values above
@@ -305,12 +316,18 @@ plt.show()
 ![png](output_6_0.png)
 
 
+#### Total Fare by City Type
+
+**_total_fare_city_type_** dataframe is created grouping **_pyber_df_** dataframe by **City Type** column, and getting fare sum for each city type as the only column.
 
 ```python
 total_fare_city_type = pyber_df.groupby(['type'])
 total_fare_city_type = total_fare_city_type['fare'].sum()
 total_fare_city_type
+```
 
+Pie chart details:
+```python
 # Labels for the sections of our pie chart
 labels = ["Rural", "Suburban", "Urban"]
 
